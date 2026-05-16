@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniversalPay - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Script para geração nativa de QR Codes em tempo real -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <h1 class="brand-title">UniversalPay</h1>
+        <p class="brand-subtitle">Plataforma Universal de Pagamentos</p>
+        
+        <nav class="sidebar-nav" id="sidebarNav">
+          <button class="nav-btn active" data-target="dashboard">Dashboard</button>
+          <button class="nav-btn" data-target="cobrancas">Cobranças</button>
+          <button class="nav-btn" data-target="clientes">Clientes</button>
+          <button class="nav-btn" data-target="assinaturas">Assinaturas</button>
+          <button class="nav-btn" data-target="relatorios">Relatórios</button>
+          <button class="nav-btn" data-target="configuracoes">Configurações</button>
+        </nav>
+      </div>
+
+      <div class="white-label-card">
+        <h3>Sistema White Label</h3>
+        <p>Estrutura preparada para APIs BAAS, PIX, cartão, boleto e recorrência.</p>
+      </div>
+    </aside>
+
+    <!-- Área Dinâmica -->
+    <main class="main-content" id="mainDynamicContent">
+      <!-- O JavaScript vai injetar o conteúdo das telas aqui -->
+    </main>
+  </div>
+
+  <!-- Modal de Nova Cobrança -->
+  <div class="modal-overlay" id="modalNovaCobranca">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="panel-title">Gerar Nova Cobrança</h3>
+        <button class="btn-close-modal" id="btnFecharModal">&times;</button>
+      </div>
+      
+      <form class="billing-form" id="formModalCobranca">
+        <div class="form-group">
+          <label>Nome do Cliente</label>
+          <input type="text" id="cobCliente" placeholder="Digite o nome do cliente" required>
+        </div>
+
+        <div class="form-group">
+          <label>Valor (R$)</label>
+          <input type="number" step="0.01" id="cobValor" placeholder="0.00" required>
+        </div>
+
+        <div class="form-group">
+          <label>Método de Pagamento</label>
+          <select id="cobMetodo">
+            <option value="PIX">PIX</option>
+            <option value="Cartão">Cartão de Crédito</option>
+            <option value="Boleto">Boleto Bancário</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Data de Vencimento</label>
+          <input type="date" id="cobVencimento" required>
+        </div>
+
+        <div class="form-group">
+          <label>Descrição</label>
+          <textarea id="cobDescricao" rows="2" placeholder="Observações da cobrança"></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary btn-block">Gerar Cobrança</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal do QR Code / Sucesso do Pagamento -->
+  <div class="modal-overlay" id="modalPixSucesso">
+    <div class="modal-card" style="max-width: 420px; text-align: center;">
+      <div class="modal-header" style="justify-content: center; position: relative;">
+        <h3 class="panel-title" id="pixModalTitulo">Cobrança Gerada!</h3>
+        <button class="btn-close-modal" id="btnFecharModalPix" style="position: absolute; right: 0; top: -5px;">&times;</button>
+      </div>
+      
+      <p class="panel-subtitle" id="pixModalMensagem" style="margin-bottom: 20px;">Use o QR Code abaixo para realizar o pagamento.</p>
+      
+      <div id="wrapperDisplayVisual">
+        <div class="qrcode-container-modal">
+          <div id="qrcodeRenderSpace"></div>
+        </div>
+        
+        <div class="form-group" style="margin-top: 20px; text-align: left;">
+          <label>Código Copia e Cola</label>
+          <input type="text" id="inputPixCopiaCola" readonly style="font-family: monospace; font-size: 0.8rem; background: #070b14;">
+        </div>
+      </div>
+
+      <button class="btn-primary btn-block" id="btnCopiarPixGeral" style="margin-top: 20px;">Copiar Código</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
